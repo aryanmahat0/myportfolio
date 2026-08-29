@@ -1,13 +1,7 @@
+// components/Hero.jsx
 import React from 'react';
 
-function Hero() {
-    const scrollToContact = () => {
-        const element = document.getElementById('contact');
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
+function Hero({ onNavigate, onToast }) {
     return (
         <section className="hero" id="hero">
             <div className="hero-content">
@@ -17,8 +11,16 @@ function Hero() {
                     Crafting elegant digital experiences with a blend of modern technology and timeless design principles.
                 </p>
                 <div className="hero-cta">
-                    <a href="#contact" className="btn-primary" onClick={(e) => { e.preventDefault(); scrollToContact(); }}>
-                        Get In Touch
+                    <button className="btn-primary" onClick={() => onNavigate('projects')}>
+                        View Work
+                    </button>
+                    <a
+                        href="/resume.pdf"
+                        download="Aryan_Mahato_Resume.pdf"
+                        className="btn-secondary"
+                        onClick={() => onToast('Downloading Resume...', 'success')}
+                    >
+                        📄 Download CV
                     </a>
                 </div>
             </div>

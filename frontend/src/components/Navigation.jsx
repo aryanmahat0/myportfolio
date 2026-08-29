@@ -1,24 +1,42 @@
-import React from 'react';
+// components/Navigation.jsx
+import React, { useState } from 'react';
+import DeveloperLogo from './DeveloperLogo';
 
+function Navigation({ onNavigate }) {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-function Navigation() {
-    const scrollToSection = (sectionId) => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
+    const handleNavClick = (sectionId) => {
+        onNavigate(sectionId);
+        setIsMobileMenuOpen(false);
     };
 
     return (
-        <nav className="navigation">
-            <a href="#" className="nav-logo">Portfolio</a>
-            <ul className="nav-links">
-                <li><a href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>Home</a></li>
-                <li><a href="#profile" onClick={(e) => { e.preventDefault(); scrollToSection('profile'); }}>Profile</a></li>
-                <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>About</a></li>
-                <li><a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>Projects</a></li>
-                <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contact</a></li>
-            </ul>
+        <nav className="navbar">
+            <div className="nav-container">
+                {/* Brand / Logo Section */}
+                <div className="nav-brand" onClick={() => handleNavClick('hero')} style={{ cursor: 'pointer' }}>
+                    <DeveloperLogo width={42} height={42} />
+                    <span className="brand-name">Aryan Mahato</span>
+                </div>
+
+                {/* Navigation Links */}
+                <ul className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
+                    <li><button onClick={() => handleNavClick('hero')}>Home</button></li>
+                    <li><button onClick={() => handleNavClick('profile')}>Profile</button></li>
+                    <li><button onClick={() => handleNavClick('about')}>About</button></li>
+                    <li><button onClick={() => handleNavClick('projects')}>Projects</button></li>
+                    <li><button onClick={() => handleNavClick('contact')}>Contact</button></li>
+                </ul>
+
+                {/* Mobile Menu Toggle */}
+                <button
+                    className="mobile-menu-toggle"
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Toggle navigation"
+                >
+                    {isMobileMenuOpen ? '✕' : '☰'}
+                </button>
+            </div>
         </nav>
     );
 }
