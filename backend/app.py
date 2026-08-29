@@ -5,15 +5,9 @@ import os
 
 app = Flask(__name__)
 
-# Only allow your live site to call this API. Add more origins to the list
-# if you also need to allow localhost during local development, e.g.:
-# CORS(app, origins=['https://aryanmahato.com.np', 'http://localhost:5173'])
 CORS(app, origins=['https://aryanmahato.com.np'])
 
 
-# -----------------------------
-# Database Connection Function
-# -----------------------------
 def get_db_connection():
     return mysql.connector.connect(
         host=os.environ['MYSQL_HOST'],
@@ -23,15 +17,11 @@ def get_db_connection():
     )
 
 
-# -----------------------------
-# Initialize Database
-# -----------------------------
 def init_db():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
 
-        # Create projects table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS projects (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,7 +34,6 @@ def init_db():
             )
         ''')
 
-        # Create contacts table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS contacts (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,7 +44,6 @@ def init_db():
             )
         ''')
 
-        # Insert sample data if empty
         cursor.execute('SELECT COUNT(*) as count FROM projects')
         result = cursor.fetchone()
 
@@ -98,10 +86,6 @@ def init_db():
     except Exception as e:
         print(f"❌ Error initializing database: {e}")
 
-
-# -----------------------------
-# Routes
-# -----------------------------
 
 @app.route('/api/projects', methods=['GET'])
 def get_projects():

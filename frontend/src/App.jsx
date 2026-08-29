@@ -11,8 +11,6 @@ const Projects = lazy(() => import('./components/Projects'));
 const Contact = lazy(() => import('./components/Contact'));
 const WelcomeModal = lazy(() => import('./components/WelcomeModal'));
 
-// Uses the deployed backend URL when built for production (set in .env as
-// VITE_API_URL), and falls back to localhost for local development.
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 function App() {

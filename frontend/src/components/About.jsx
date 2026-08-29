@@ -21,7 +21,7 @@ function About() {
                 <div className="about-text">
                     <p>
                         Hello! I'm a Computer Engineering undergraduate at Kathmandu University,
-                        currently in my 3rd year (5th semester), with a strong passion for
+                        currently in my 3rd year (6th semester), with a strong passion for
                         full-stack development and building meaningful digital solutions.
                         I enjoy transforming ideas into functional and visually engaging
                         web applications through clean code and thoughtful design.

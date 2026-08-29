@@ -8,7 +8,7 @@ function Profile({ onToast }) {
     const socialLinks = [
         { name: 'Instagram', url: 'https://www.instagram.com/__ary.xn__/' },
         { name: 'Facebook', url: 'https://www.facebook.com/aryana.mahato.2025' },
-        { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername' },
+        { name: 'LinkedIn', url: 'https://www.linkedin.com/in/aryan-mahato-71a96739b/' },
         { name: 'GitHub', url: 'https://github.com/aryanmahat0' }
     ];
 
@@ -60,7 +60,9 @@ function Profile({ onToast }) {
             {isOpen && (
                 <div className="image-modal" onClick={() => setIsOpen(false)}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-btn" onClick={() => setIsOpen(false)}>✕</button>
+                        <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close modal">
+                            ✕
+                        </button>
                         <img src={profileImg} alt="Full View" />
                     </div>
                 </div>
