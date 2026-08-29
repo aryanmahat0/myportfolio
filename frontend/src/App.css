@@ -263,6 +263,7 @@ body {
     animation: fadeInUp 1s ease-out 0.8s backwards;
 }
 
+/* Button Component Styles */
 .btn-primary {
     display: inline-block;
     padding: 1rem 3rem;
@@ -318,6 +319,24 @@ body {
 .btn-secondary:hover {
     background: var(--warm-brown);
     color: var(--ivory);
+}
+
+.btn-accent {
+    padding: 0.65rem 1rem;
+    background: var(--warm-brown);
+    color: var(--ivory);
+    border: 2px solid var(--warm-brown);
+    font-family: var(--font-accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-accent:hover {
+    background: var(--dark-brown);
+    border-color: var(--dark-brown);
 }
 
 /* Profile Section */
@@ -998,33 +1017,139 @@ section {
     }
 }
 
-/* Modals */
+/* Fixed Welcome Modal & Backdrops */
 .image-modal,
+.welcome-modal,
 .welcome-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(44, 24, 16, 0.8);
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(44, 24, 16, 0.85);
     backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2000;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 99999 !important;
     animation: fadeIn 0.3s ease;
 }
 
 .welcome-modal-card {
     background: var(--ivory);
     border: 3px solid var(--warm-brown);
-    padding: var(--spacing-lg);
-    max-width: 500px;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    max-width: 480px;
     width: 90%;
     text-align: center;
     position: relative;
-    box-shadow: 15px 15px 0 rgba(139, 111, 71, 0.2);
+    box-shadow: 12px 12px 0 rgba(139, 111, 71, 0.3);
     animation: zoomIn 0.3s ease;
+    z-index: 100000 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Close Button Top Right */
+.welcome-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--charcoal);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.2rem 0.5rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.welcome-close-btn:hover {
+    color: var(--burgundy);
+    transform: scale(1.15);
+}
+
+/* Welcome Modal Header & Badging */
+.welcome-header {
+    margin-bottom: 0.75rem;
+    width: 100%;
+}
+
+.welcome-badge {
+    display: inline-block;
+    font-family: var(--font-accent);
+    color: var(--warm-brown);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.3rem);
+    font-weight: 900;
+    color: var(--dark-brown);
+    line-height: 1.2;
+}
+
+/* Welcome Modal Content Text */
+.welcome-message {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    color: var(--olive);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.personalized-note {
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+/* Visitor Input Row Styling */
+.visitor-input-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+.visitor-input-group input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.65rem 0.9rem;
+    border: 2px solid var(--warm-brown);
+    background: var(--cream);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--dark-brown);
+    transition: border-color 0.2s ease;
+}
+
+.visitor-input-group input:focus {
+    outline: none;
+    border-color: var(--burgundy);
+}
+
+/* Actions Wrapper */
+.welcome-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.welcome-actions button {
+    width: 100%;
+    text-align: center;
 }
 
 @keyframes fadeIn {
@@ -1039,12 +1164,12 @@ section {
 
 @keyframes zoomIn {
     from {
-        transform: scale(0.7);
+        transform: scale(0.95) translateY(10px);
         opacity: 0;
     }
 
     to {
-        transform: scale(1);
+        transform: scale(1) translateY(0);
         opacity: 1;
     }
 }
@@ -1094,12 +1219,10 @@ section {
 
     .mobile-menu-toggle {
         display: block;
-        /* Shows toggle on smaller screens */
     }
 
     .nav-links {
         display: none;
-        /* Collapses horizontal navbar into mobile menu drawer */
         position: absolute;
         top: 100%;
         left: 0;
