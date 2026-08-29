@@ -4,7 +4,11 @@ import mysql.connector
 import os
 
 app = Flask(__name__)
-CORS(app)
+
+# Only allow your live site to call this API. Add more origins to the list
+# if you also need to allow localhost during local development, e.g.:
+# CORS(app, origins=['https://aryanmahato.com.np', 'http://localhost:5173'])
+CORS(app, origins=['https://aryanmahato.com.np'])
 
 
 # -----------------------------
@@ -12,10 +16,10 @@ CORS(app)
 # -----------------------------
 def get_db_connection():
     return mysql.connector.connect(
-        host=os.getenv('MYSQL_HOST', 'localhost'),
-        user=os.getenv('MYSQL_USER', 'root'),
-        password=os.getenv('MYSQL_PASSWORD', 'nepal@123'),  # change if needed
-        database=os.getenv('MYSQL_DB', 'portfolio_db')
+        host=os.environ['MYSQL_HOST'],
+        user=os.environ['MYSQL_USER'],
+        password=os.environ['MYSQL_PASSWORD'],
+        database=os.environ['MYSQL_DB']
     )
 
 
@@ -259,4 +263,5 @@ if __name__ == '__main__':
     with app.app_context():
         init_db()
 
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(debug=False, host='0.0.0.0', port=port)

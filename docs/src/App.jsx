@@ -11,6 +11,10 @@ const Projects = lazy(() => import('./components/Projects'));
 const Contact = lazy(() => import('./components/Contact'));
 const WelcomeModal = lazy(() => import('./components/WelcomeModal'));
 
+// Uses the deployed backend URL when built for production (set in .env as
+// VITE_API_URL), and falls back to localhost for local development.
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+
 function App() {
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -26,7 +30,7 @@ function App() {
 
     const fetchProjects = useCallback(async () => {
         try {
-            const response = await fetch('http://localhost:5001/api/projects');
+            const response = await fetch(`${API_URL}/api/projects`);
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
             setProjects(data);
@@ -43,7 +47,7 @@ function App() {
 
     const handleContactSubmit = useCallback(async (formData) => {
         try {
-            const response = await fetch('http://localhost:5001/api/contact', {
+            const response = await fetch(`${API_URL}/api/contact`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
