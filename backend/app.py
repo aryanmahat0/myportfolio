@@ -5,6 +5,7 @@ import os
 
 app = Flask(__name__)
 
+
 CORS(app, origins=['https://aryanmahato.com.np'])
 
 
@@ -13,15 +14,20 @@ def get_db_connection():
         host=os.environ['MYSQL_HOST'],
         user=os.environ['MYSQL_USER'],
         password=os.environ['MYSQL_PASSWORD'],
-        database=os.environ['MYSQL_DB']
+        database=os.environ['MYSQL_DB'],
+        port=int(os.environ.get('MYSQL_PORT', 3306))
     )
 
 
+# -----------------------------
+# Initialize Database
+# -----------------------------
 def init_db():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
 
+        # Create projects table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS projects (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -34,6 +40,7 @@ def init_db():
             )
         ''')
 
+        # Create contacts table
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS contacts (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -44,6 +51,7 @@ def init_db():
             )
         ''')
 
+        # Insert sample data if empty
         cursor.execute('SELECT COUNT(*) as count FROM projects')
         result = cursor.fetchone()
 
@@ -86,6 +94,10 @@ def init_db():
     except Exception as e:
         print(f"❌ Error initializing database: {e}")
 
+
+# -----------------------------
+# Routes
+# -----------------------------
 
 @app.route('/api/projects', methods=['GET'])
 def get_projects():
